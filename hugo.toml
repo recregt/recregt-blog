@@ -1,0 +1,129 @@
+baseURL = 'https://blog.recregt.com/'
+title = 'Recregt - Blog'
+theme = 'PaperMod'
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+pygmentsUseClasses = true
+pagination.pagerSize = 10
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[params]
+  mainSections = ["mathematics", "physics", "computer-science", "programming"]
+  env = "production"
+  author = "Ömer Tekin"
+  images = ["/images/og-image.jpg"]
+  description = "University course notes, examples, and resources. Mathematics, Physics, Computer Science, and more."
+  keywords = ["study notes", "university", "mathematics", "physics", "programming", "computer science"]
+  DateFormat = "2 January 2006"
+  defaultTheme = "auto"
+  disableThemeToggle = false
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = true
+  math = true
+
+[params.homeInfoParams]
+  Title = "Welcome! 👋"
+  Content = """
+  I share my university course notes on this site.
+  
+  Explore notes for Mathematics, Physics, Computer Science, and more.
+  """
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/recregt"
+
+[[params.socialIcons]]
+  name = "X"
+  url = "https://x.com/recregt"
+
+[[params.socialIcons]]
+  name = "email"
+  url = "mailto:me@recregt.com"
+
+[[params.socialIcons]]
+  name = "linkedin"
+  url = "https://linkedin.com/in/recregt"
+
+[params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = ["title", "permalink", "summary", "content"]
+
+[[menu.main]]
+  identifier = "home"
+  name = "Home"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "lessons"
+  name = "Lessons"
+  url = "/lessons/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "topics"
+  name = "Topics"
+  url = "/topics/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "search"
+  name = "Search"
+  url = "/search/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "recregt"
+  name = "Recregt"
+  url = "https://recregt.com"
+  weight = 50
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.goldmark]
+    [markup.renderer]
+      unsafe = true
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    style = "monokai"
+    tabWidth = 4
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.8
+
+[taxonomies]
+  lesson = "lessons"
+  topic = "topics"

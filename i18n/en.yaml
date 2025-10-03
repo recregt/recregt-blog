@@ -1,0 +1,6 @@
+# Custom translations for English
+- id: lessons
+  translation: "Lessons"
+
+- id: topics  
+  translation: "Topics"

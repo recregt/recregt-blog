@@ -1,0 +1,81 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+{{/* Check if this is the topics taxonomy page */}}
+{{- if eq .Type "topics" }}
+  {{/* Group topics by lessons */}}
+  {{- $topicsByLesson := dict }}
+  
+  {{/* Iterate through all topics */}}
+  {{- range $key, $value := .Data.Terms.Alphabetical }}
+    {{- $topicName := .Name }}
+    {{- $topicCount := .Count }}
+    {{- $topicPage := site.GetPage (printf "/topics/%s" ($topicName | urlize)) }}
+    
+    {{/* For each topic, find which lessons use it */}}
+    {{- if $topicPage }}
+      {{- range $topicPage.Pages }}
+        {{- range .Params.lessons }}
+          {{- $lesson := . }}
+          {{- $lessonTopics := index $topicsByLesson $lesson }}
+          {{- if not $lessonTopics }}
+            {{- $lessonTopics = slice }}
+          {{- end }}
+          {{- $topicInfo := dict "name" $topicName "count" $topicCount "url" $topicPage.Permalink }}
+          {{- $lessonTopics = $lessonTopics | append $topicInfo }}
+          {{- $topicsByLesson = merge $topicsByLesson (dict $lesson $lessonTopics) }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{/* Display topics grouped by lesson */}}
+  {{- range $lesson, $topics := $topicsByLesson }}
+    {{- $uniqueTopics := slice }}
+    {{- $seenTopics := slice }}
+    {{- range $topics }}
+      {{- if not (in $seenTopics .name) }}
+        {{- $uniqueTopics = $uniqueTopics | append . }}
+        {{- $seenTopics = $seenTopics | append .name }}
+      {{- end }}
+    {{- end }}
+    
+    <div class="post-content" style="margin-bottom: 2rem;">
+      <h2 style="margin-bottom: 1rem;">📚 {{ $lesson }}</h2>
+      <ul class="terms-tags">
+        {{- range sort $uniqueTopics "name" }}
+        <li>
+          <a href="{{ .url }}">{{ .name | title }} <sup><strong><sup>{{ .count }}</sup></strong></sup></a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+  {{- end }}
+
+{{- else }}
+  {{/* Default behavior for other taxonomies (lessons, etc.) */}}
+  <ul class="terms-tags">
+    {{- $type := .Type }}
+    {{- range $key, $value := .Data.Terms.Alphabetical }}
+    {{- $name := .Name }}
+    {{- $count := .Count }}
+    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+    <li>
+      <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
+    </li>
+    {{- end }}
+    {{- end }}
+  </ul>
+{{- end }}
+
+{{- end }}{{/* end main */ -}}
