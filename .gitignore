@@ -35,3 +35,6 @@ Thumbs.db
 
 # Node modules (if using npm for any reason)
 node_modules/
+
+# Ignore local scripts folder
+/scripts/
