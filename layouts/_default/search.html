@@ -1,7 +1,8 @@
 {{- define "main" }}
 
 <div class="search-container">
-  <input id="searchInput" type="text" placeholder="Search in the notes..." autofocus>
+  <label for="searchInput" class="sr-only">Search in the notes</label>
+  <input id="searchInput" type="text" placeholder="Search in the notes..." autofocus aria-label="Search in the notes">
   <ul id="searchResults"></ul>
 </div>
 
