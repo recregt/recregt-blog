@@ -5,18 +5,7 @@
 <link rel="manifest" href="/images/site.webmanifest">
 <link rel="shortcut icon" href="/images/favicon.ico">
 
-{{- /* Google Analytics */ -}}
-{{- if eq .Site.Params.env "production" }}
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBKMDLF0YE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-PBKMDLF0YE');
-</script>
-{{- end }}
 
 {{- /* Open Graph image for social media */ -}}
 <meta property="og:image" content="{{ .Site.BaseURL }}images/og-image.jpg">
@@ -39,21 +28,95 @@
     }
 </style>
 
-{{- if .Param "math" }}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+{{- /* DNS prefetch and preconnect for external resources */ -}}
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+{{- /* Service Worker for caching external resources */ -}}
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-          delimiters: [
-              {left: '$$', right: '$$', display: true},
-              {left: '$', right: '$', display: false},
-              {left: '\\(', right: '\\)', display: false},
-              {left: '\\[', right: '\\]', display: true}
-          ],
-          throwOnError : false
-        });
+// Register service worker for performance optimization
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('SW registered: ', registration);
+      })
+      .catch(function(registrationError) {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}
+
+// Performance optimization: Handle Cloudflare email decode efficiently
+(function() {
+    // Defer Cloudflare email decode to prevent render blocking
+    var cfEmailScript = document.querySelector('script[data-cfasync="false"][src*="email-decode"]');
+    if (cfEmailScript) {
+        cfEmailScript.defer = true;
+    }
+    
+    // Alternative: Load email decode after critical path
+    window.addEventListener('load', function() {
+        if (typeof cloudflare !== 'undefined' && cloudflare.init) {
+            cloudflare.init();
+        }
     });
+})();
+</script>
+
+{{- if .Param "math" }}
+{{- /* Critical KaTeX CSS inline - no VS Code linter errors */ -}}
+<style>
+/* Critical KaTeX styles for immediate rendering */
+.katex{font:normal 1.21em KaTeX_Main,"Times New Roman",serif;line-height:1.2;text-indent:0;text-rendering:auto;border-color:currentColor}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:min-content}.katex .strut{display:inline-block}.katex .textbf{font-weight:bold}.katex .textit{font-style:italic}.katex .mathnormal{font-family:KaTeX_Math;font-style:italic}.katex .mathit{font-family:KaTeX_Main;font-style:italic}.katex .mathrm{font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;white-space:nowrap}
+</style>
+
+{{- /* Preload full KaTeX CSS for complete styling */ -}}
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+{{- /* Fallback for browsers that don't support preload */ -}}
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous"></noscript>
+
+{{- /* Load KaTeX JavaScript asynchronously */ -}}
+<script>
+(function() {
+    // Function to load KaTeX scripts dynamically
+    function loadKaTeX() {
+        const katexScript = document.createElement('script');
+        katexScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+        katexScript.integrity = 'sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8';
+        katexScript.crossOrigin = 'anonymous';
+        
+        katexScript.onload = function() {
+            const autoRenderScript = document.createElement('script');
+            autoRenderScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
+            autoRenderScript.integrity = 'sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05';
+            autoRenderScript.crossOrigin = 'anonymous';
+            
+            autoRenderScript.onload = function() {
+                // Render math when everything is loaded
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            };
+            
+            document.head.appendChild(autoRenderScript);
+        };
+        
+        document.head.appendChild(katexScript);
+    }
+    
+    // Load KaTeX after page load to prevent render blocking
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadKaTeX);
+    } else {
+        loadKaTeX();
+    }
+})();
 </script>
 {{- end }}
