@@ -16,78 +16,33 @@ Personal blog featuring university course notes and educational content.
 
 ## 💻 Local Development
 
-### Prerequisites
-
-- Hugo Extended v0.112.0 or higher
-
-### Running Locally
-
 ```bash
 # Clone the repository
 git clone https://github.com/recregt/recregt-blog.git
 cd recregt-blog
 
-# Initialize submodules (for theme)
+# Initialize theme submodule
 git submodule update --init --recursive
 
-# Run the development server
+# Run development server
 hugo server
 
 # Build for production
 hugo --minify
 ```
 
-The site will be available at `http://localhost:1313/`
-
-## 📁 Project Structure
-
-```
-recregt-blog/
-├── archetypes/          # Content templates
-├── content/             # Blog content
-│   ├── mathematics/     # Math articles
-│   ├── physics/         # Physics articles
-│   ├── computer-science/# CS articles
-│   └── programming/     # Programming articles
-├── layouts/             # Custom layout overrides
-├── static/              # Static files (images, etc.)
-├── themes/              # Hugo themes
-│   └── PaperMod/        # PaperMod theme (submodule)
-└── hugo.toml           # Site configuration
-```
-
 ## ✨ Features
 
-- 📚 Organized by lessons (categories)
-- 🏷️ Topics (tags) grouped by lessons
-- 🔍 Full-text search functionality
-- 📱 Responsive design
-- 🌙 Dark/light mode
-- ⚡ Fast loading times
+- 📚 Organized course notes by subject
+- 🔍 Full-text search functionality  
+- 📱 Responsive design with dark/light mode
 - 📊 Math equation support (KaTeX)
 - 🎨 Syntax highlighting for code
 
-## 📝 Creating New Content
+## 📝 Creating Content
 
 ```bash
-# Create a new article
-hugo new content/<lesson>/<topic-name>/index.md
-
-# Example: Create a new math article
-hugo new content/mathematics/linear-algebra/index.md
-```
-
-Edit the frontmatter:
-```yaml
----
-title: "Your Article Title"
-date: 2025-10-04
-draft: false
-topics: ["topic1", "topic2"]
-lessons: ["Lesson Name"]
-math: true
-description: "Article description"
----
+hugo new content/<subject>/<topic>/index.md
 ```
 
 ## 🌐 Live Site
@@ -100,16 +55,4 @@ Content is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by
 
 ## 👤 Author
 
-**Ömer Tekin**
-
-- Website: [recregt.com](https://recregt.com)
-- GitHub: [@recregt](https://github.com/recregt)
-- Twitter: [@recregt](https://twitter.com/recregt)
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
----
-
-Made with ❤️ and Hugo
+**Ömer Tekin** - [recregt.com](https://recregt.com)

@@ -1,0 +1,9 @@
+# RSS feed redirects
+/feed /index.xml 301
+/rss /index.xml 301
+
+# Search SPA fallback
+/search/* /search/index.html 200
+
+# 404 fallback
+/* /404.html 404
