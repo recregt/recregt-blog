@@ -22,6 +22,8 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         
     - name: Checkout submodule properly
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         # Submodule'u doğru branch'te çek
         git submodule init
@@ -30,18 +32,20 @@ jobs:
         cd themes/PaperMod
         
         # Configure git to use PAT for authentication
-        git config url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
+        git config url."https://x-access-token:${PAT_TOKEN}@github.com/".insteadOf "https://github.com/"
         
         # Fork'umuzun master branch'ına geç (detached HEAD'den çık)
         git checkout master
         git pull origin master
         
     - name: Update theme with accessibility preserved
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         cd themes/PaperMod
         
         # Configure git to use PAT for authentication
-        git config url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
+        git config url."https://x-access-token:${PAT_TOKEN}@github.com/".insteadOf "https://github.com/"
         
         # Add upstream remote
         git remote add upstream https://github.com/adityatelange/hugo-PaperMod.git || true
