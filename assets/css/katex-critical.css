@@ -49,24 +49,24 @@
 }
 
 .katex .textrm {
-    font-family: KaTeX_Main;
+    font-family: KaTeX_Main, "Times New Roman", serif;
 }
 
 .katex .textsf {
-    font-family: KaTeX_SansSerif;
+    font-family: KaTeX_SansSerif, Arial, sans-serif;
 }
 
 .katex .texttt {
-    font-family: KaTeX_Typewriter;
+    font-family: KaTeX_Typewriter, "Courier New", monospace;
 }
 
 .katex .mathnormal {
-    font-family: KaTeX_Math;
+    font-family: KaTeX_Math, "Times New Roman", serif;
     font-style: italic;
 }
 
 .katex .mathit {
-    font-family: KaTeX_Main;
+    font-family: KaTeX_Main, "Times New Roman", serif;
     font-style: italic;
 }
 
