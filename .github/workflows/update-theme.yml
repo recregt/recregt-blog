@@ -29,6 +29,9 @@ jobs:
         
         cd themes/PaperMod
         
+        # Configure git to use PAT for authentication
+        git config url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
+        
         # Fork'umuzun master branch'ına geç (detached HEAD'den çık)
         git checkout master
         git pull origin master
@@ -36,6 +39,9 @@ jobs:
     - name: Update theme with accessibility preserved
       run: |
         cd themes/PaperMod
+        
+        # Configure git to use PAT for authentication
+        git config url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
         
         # Add upstream remote
         git remote add upstream https://github.com/adityatelange/hugo-PaperMod.git || true
