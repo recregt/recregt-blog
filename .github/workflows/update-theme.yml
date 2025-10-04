@@ -84,10 +84,7 @@ jobs:
         
     - name: Update submodule in main project
       run: |
-        # Return to main project
-        cd ../..
-        
-        # Update submodule reference
+        # Update submodule reference (we're in the main project root)
         git add themes/PaperMod
         
         # Commit if there are changes
