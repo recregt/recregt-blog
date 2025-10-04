@@ -7,16 +7,16 @@ const STATIC_CACHE_URLS = [
 ];
 
 // Install event - cache static resources
-self.addEventListener('install', event => {
+globalThis.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(STATIC_CACHE_URLS))
-      .then(() => self.skipWaiting())
+      .then(() => globalThis.skipWaiting())
+
   );
 });
-
 // Activate event - clean up old caches
-self.addEventListener('activate', event => {
+globalThis.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
@@ -26,12 +26,12 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => globalThis.clients.claim())
   );
 });
 
 // Fetch event - serve from cache when available
-self.addEventListener('fetch', event => {
+globalThis.addEventListener('fetch', event => {
   // Only cache GET requests
   if (event.request.method !== 'GET') return;
   
