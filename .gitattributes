@@ -1,14 +1,11 @@
 # Ignore generated files from language statistics
 public/* linguist-generated=true
 
+# Mark theme files as vendored (third-party)
+themes/* linguist-vendored=true
+
 # Mark Hugo template files properly
 layouts/**/*.html linguist-language=HTML
-themes/**/*.html linguist-language=HTML
-
-# Ensure Go templates are recognized
-*.html linguist-detectable=false
-layouts/**/*.html linguist-detectable=true
-themes/**/*.html linguist-detectable=true
 
 # Mark config files
 *.toml linguist-language=TOML
