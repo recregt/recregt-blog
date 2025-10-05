@@ -114,62 +114,34 @@ if ('serviceWorker' in navigator) {
 .katex{font:normal 1.21em KaTeX_Main,"Times New Roman",serif;line-height:1.2;text-indent:0;text-rendering:auto;border-color:currentColor}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:min-content}.katex .strut{display:inline-block}.katex .textbf{font-weight:bold}.katex .textit{font-style:italic}.katex .mathnormal{font-family:KaTeX_Math,"Times New Roman",serif;font-style:italic}.katex .mathit{font-family:KaTeX_Main,"Times New Roman",serif;font-style:italic}.katex .mathrm{font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;white-space:nowrap}
 </style>
 
-{{- /* Preload full KaTeX CSS for complete styling */ -}}
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-{{- /* Fallback for browsers that don't support preload */ -}}
-<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous"></noscript>
+{{- /* Load full KaTeX CSS directly */ -}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" crossorigin="anonymous">
 
-{{- /* Load KaTeX JavaScript asynchronously */ -}}
+{{- /* Load KaTeX JavaScript with defer for better performance */ -}}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderKaTeXMath()"></script>
+
 <script>
-(function() {
-    // Function to load KaTeX scripts dynamically
-    function loadKaTeX() {
-        const katexScript = document.createElement('script');
-        katexScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
-        katexScript.integrity = 'sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8';
-        katexScript.crossOrigin = 'anonymous';
-        
-        katexScript.onload = function() {
-            const autoRenderScript = document.createElement('script');
-            autoRenderScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
-            autoRenderScript.integrity = 'sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05';
-            autoRenderScript.crossOrigin = 'anonymous';
-            
-            autoRenderScript.onload = function() {
-                // Render math when everything is loaded
-                console.log('KaTeX auto-render loaded, rendering math...');
-                try {
-                    renderMathInElement(document.body, {
-                        delimiters: [
-                            {left: '$$', right: '$$', display: true},
-                            {left: '$', right: '$', display: false},
-                            {left: '\\(', right: '\\)', display: false},
-                            {left: '\\[', right: '\\]', display: true}
-                        ],
-                        throwOnError: false,
-                        strict: false,
-                        trust: true,
-                        // Ignore code blocks
-                        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-                    });
-                    console.log('KaTeX rendering completed successfully');
-                } catch (error) {
-                    console.error('KaTeX rendering error:', error);
-                }
-            };
-            
-            document.head.appendChild(autoRenderScript);
-        };
-        
-        document.head.appendChild(katexScript);
+// Render math after auto-render script loads
+function renderKaTeXMath() {
+    console.log('KaTeX auto-render loaded, rendering math...');
+    try {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false},
+                {left: '\\(', right: '\\)', display: false},
+                {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false,
+            strict: false,
+            trust: true,
+            ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        });
+        console.log('KaTeX rendering completed successfully');
+    } catch (error) {
+        console.error('KaTeX rendering error:', error);
     }
-    
-    // Load KaTeX after page load to prevent render blocking
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadKaTeX);
-    } else {
-        loadKaTeX();
-    }
-})();
+}
 </script>
 {{- end }}
