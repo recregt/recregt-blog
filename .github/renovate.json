@@ -30,32 +30,41 @@
   "packageRules": [
     {
       "description": "CDN dependencies (fuse.js, KaTeX, etc.)",
-      "matchManagers": ["regex"],
-      "matchDepPatterns": [".*"],
+      "matchManagers": [
+        "custom.regex"
+      ],
       "groupName": "CDN dependencies",
       "enabled": true,
       "schedule": [
         "before 6am on the first day of the month"
+      ],
+      "matchDepNames": [
+        "/.*/"
       ]
     },
     {
       "description": "GitHub Actions",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "groupName": "GitHub Actions",
       "pinDigests": true,
       "automerge": false
     },
     {
       "description": "Hugo theme submodule - Disabled because we have custom update-theme workflow",
-      "matchManagers": ["gitsubmodules"],
+      "matchManagers": [
+        "gitsubmodules"
+      ],
       "enabled": false
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "Update CDN dependencies in HTML templates with SRI",
-      "fileMatch": [
-        "\\.html$"
+      "managerFilePatterns": [
+        "/\\.html$/"
       ],
       "matchStrings": [
         "(?<depName>https:\\/\\/cdn\\.jsdelivr\\.net\\/npm\\/(?<packageName>[^@]+))@(?<currentValue>[^/\"'\\s]+)(\\/[^\"'\\s]*)?\"\n?\\s*integrity=\"(?<currentDigest>sha[0-9]+-[A-Za-z0-9+/=]+)\"\\s*crossorigin=\"anonymous\""
@@ -65,9 +74,10 @@
       "versioningTemplate": "npm"
     },
     {
+      "customType": "regex",
       "description": "Update CDN dependencies without SRI (will add integrity)",
-      "fileMatch": [
-        "\\.html$"
+      "managerFilePatterns": [
+        "/\\.html$/"
       ],
       "matchStrings": [
         "<(?:script|link)[^>]*(?:src|href)=\"https:\\/\\/cdn\\.jsdelivr\\.net\\/npm\\/(?<packageName>[^@]+)@(?<currentValue>[^/\"'\\s]+)"
