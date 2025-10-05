@@ -1,0 +1,89 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "Europe/Istanbul",
+  "schedule": [
+    "before 6am on Monday"
+  ],
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageAction": "update",
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "separateMajorMinor": true,
+  "separateMinorPatch": false,
+  "rangeStrategy": "pin",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "security"
+    ]
+  },
+  "lockFileMaintenance": {
+    "enabled": false
+  },
+  "packageRules": [
+    {
+      "description": "CDN dependencies (fuse.js, KaTeX, etc.)",
+      "matchManagers": ["regex"],
+      "matchDepPatterns": [".*"],
+      "groupName": "CDN dependencies",
+      "enabled": true,
+      "schedule": [
+        "before 6am on the first day of the month"
+      ]
+    },
+    {
+      "description": "GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "pinDigests": true,
+      "automerge": false
+    },
+    {
+      "description": "Hugo theme submodule - Disabled because we have custom update-theme workflow",
+      "matchManagers": ["gitsubmodules"],
+      "enabled": false
+    }
+  ],
+  "regexManagers": [
+    {
+      "description": "Update CDN dependencies in HTML templates with SRI",
+      "fileMatch": [
+        "\\.html$"
+      ],
+      "matchStrings": [
+        "(?<depName>https:\\/\\/cdn\\.jsdelivr\\.net\\/npm\\/(?<packageName>[^@]+))@(?<currentValue>[^/\"'\\s]+)(\\/[^\"'\\s]*)?\"\n?\\s*integrity=\"(?<currentDigest>sha[0-9]+-[A-Za-z0-9+/=]+)\"\\s*crossorigin=\"anonymous\""
+      ],
+      "datasourceTemplate": "npm",
+      "depNameTemplate": "{{packageName}}",
+      "versioningTemplate": "npm"
+    },
+    {
+      "description": "Update CDN dependencies without SRI (will add integrity)",
+      "fileMatch": [
+        "\\.html$"
+      ],
+      "matchStrings": [
+        "<(?:script|link)[^>]*(?:src|href)=\"https:\\/\\/cdn\\.jsdelivr\\.net\\/npm\\/(?<packageName>[^@]+)@(?<currentValue>[^/\"'\\s]+)"
+      ],
+      "datasourceTemplate": "npm",
+      "depNameTemplate": "{{packageName}}",
+      "versioningTemplate": "npm"
+    }
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**",
+    "**/themes/PaperMod/**"
+  ],
+  "suppressNotifications": [
+    "prIgnoreNotification"
+  ]
+}
