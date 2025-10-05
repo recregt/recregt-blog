@@ -115,11 +115,11 @@ if ('serviceWorker' in navigator) {
 </style>
 
 {{- /* Load full KaTeX CSS directly */ -}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" integrity="sha384-YnSmA1wo5PJQM7EtGN3qRuimJUNz2vtC3a3s5t5EqI4zO8w3DZWEzr/FbJ2E7GKe" crossorigin="anonymous">
 
 {{- /* Load KaTeX JavaScript with defer for better performance */ -}}
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderKaTeXMath()"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.js" integrity="sha384-+3bRQNh/AFEQD2LTCH1fYU2HgYaFpJhimJX8EZb0A5Xu+t9TfD2h2X8BPWN0yBp9" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/contrib/auto-render.min.js" integrity="sha384-slDJ+H6hZIaT9LeCmHN2lLFn7rQ+jQGVR5A1+bSL8yVqvA50Ek3bQqJGPT3fUJzL" crossorigin="anonymous" onload="renderKaTeXMath()"></script>
 
 <script>
 // Render math after auto-render script loads
