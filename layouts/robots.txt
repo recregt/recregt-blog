@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# Site indexing disabled by site owner while under development.
+# Remove or modify this file when you want the site to be discoverable.
