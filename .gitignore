@@ -1,40 +1,27 @@
-# Hugo
-/public/
-/resources/
-.hugo_build.lock
-
-# Node.js
-node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
 yarn.lock
 
-# OS
-.DS_Store
-Thumbs.db
+# Hugo build output and lock
+/public/
+/resources/
+.hugo_build.lock
 
-# IDE
+# Local Hugo config override (do not commit)
+hugo.local.toml
+
+# Editor/IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Temporary files
-*.tmp
-*.log
-*.cache
+# OS files
+.DS_Store
+Thumbs.db
 
-# Lighthouse
-.lighthouseci/
-
-# Sonar
-.sonar/
-
-# Node modules (if using npm for any reason)
-node_modules/
-
-# Ignore local scripts folder
+# Local scripts (optional, if not versioned)
 /scripts/
