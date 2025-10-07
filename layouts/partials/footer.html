@@ -23,7 +23,7 @@
         }
     }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    for (const anchor of document.querySelectorAll('a[href^="#"]')) {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
             var id = this.getAttribute("href").substr(1);
@@ -40,7 +40,7 @@
                 history.pushState(null, null, `#${id}`);
             }
         });
-    });
+    }
 
 </script>
 
@@ -77,7 +77,7 @@
 
 {{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
 <script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
+    for (const codeblock of document.querySelectorAll('pre > code')) {
         const container = codeblock.parentNode.parentNode;
 
         const copybutton = document.createElement('button');
@@ -121,6 +121,6 @@
             // code blocks not having highlight as parent class
             codeblock.parentNode.appendChild(copybutton);
         }
-    });
+    }
 </script>
 {{- end }}
