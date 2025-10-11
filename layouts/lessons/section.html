@@ -80,60 +80,6 @@
 </div>
 {{- end }}
 
-<style>
-.lessons-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.lesson-item,
-.lesson-category {
-  display: block;
-  padding: 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  color: inherit;
-}
-
-.lesson-item:hover,
-.lesson-category:hover {
-  border-color: var(--tertiary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.lesson-item article,
-.lesson-category article {
-  margin: 0;
-}
-
-.lesson-title {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--primary);
-}
-
-.lesson-description {
-  color: var(--secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.lesson-category {
-  background: var(--code-bg);
-}
-
-.lesson-category .lesson-title {
-  font-size: 1.35rem;
-}
-</style>
-
 {{- end }}
 
 {{- if gt $paginator.TotalPages 1 }}
