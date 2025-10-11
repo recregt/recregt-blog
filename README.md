@@ -55,4 +55,4 @@ Content is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by
 
 ## 👤 Author
 
-**Ömer Tekin** - [notes.recregt.com](https://notes.recregt.com)
+**Ömer Tekin**
