@@ -1,5 +1,5 @@
-baseURL = 'https://blog.recregt.com/'
-title = 'Recregt - Blog'
+baseURL = 'https://notes.recregt.com/'
+title = 'Recregt Notes'
 theme = 'PaperMod'
 enableRobotsTXT = true
 buildDrafts = false
@@ -58,7 +58,7 @@ pagination.pagerSize = 10
 
 [[params.socialIcons]]
   name = "email"
-  url = "mailto:me@recregt.com"
+  url = "mailto:me@notes.recregt.com"
 
 [[params.socialIcons]]
   name = "linkedin"
@@ -100,7 +100,7 @@ pagination.pagerSize = 10
 [[menu.main]]
   identifier = "recregt"
   name = "Recregt"
-  url = "https://recregt.com"
+  url = "https://notes.recregt.com"
   weight = 50
 
 [outputs]

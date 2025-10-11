@@ -1,4 +1,4 @@
-# Recregt Blog
+# Recregt Notes
 
 Personal blog featuring university course notes and educational content.
 
@@ -47,7 +47,7 @@ hugo new content/<subject>/<topic>/index.md
 
 ## 🌐 Live Site
 
-Visit the blog at: [blog.recregt.com](https://blog.recregt.com)
+Visit the blog at: [notes.recregt.com](https://notes.recregt.com)
 
 ## 📄 License
 
@@ -55,4 +55,4 @@ Content is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by
 
 ## 👤 Author
 
-**Ömer Tekin** - [recregt.com](https://recregt.com)
+**Ömer Tekin** - [notes.recregt.com](https://notes.recregt.com)
