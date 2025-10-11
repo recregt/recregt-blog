@@ -77,6 +77,74 @@
     .lesson-description{color:var(--secondary);font-size:.95rem;line-height:1.6;margin:0}
     .lesson-category{background:var(--code-bg)}
     .lesson-category .lesson-title{font-size:1.35rem}
+
+    /* Mobile responsive improvements for math and content */
+    @media screen and (max-width: 768px) {
+        /* Prevent horizontal scroll on mobile */
+        .post-content {
+            overflow-x: hidden;
+        }
+        
+        /* Math display improvements */
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            margin: 0.8em -1rem;
+            padding: 0 1rem;
+        }
+        
+        /* Smaller font for math on mobile */
+        .katex {
+            font-size: 1.05em !important;
+        }
+        
+        /* Better scrollbar for math on mobile */
+        .katex-display::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .katex-display::-webkit-scrollbar-track {
+            background: var(--code-bg);
+            border-radius: 3px;
+        }
+        
+        .katex-display::-webkit-scrollbar-thumb {
+            background: var(--tertiary);
+            border-radius: 3px;
+        }
+        
+        /* Code blocks responsive */
+        pre {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Reduce padding on mobile for better space usage */
+        .post-content h2,
+        .post-content h3 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        /* Lists with math content */
+        .post-content li {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    /* Extra small screens */
+    @media screen and (max-width: 480px) {
+        .katex {
+            font-size: 1em !important;
+        }
+        
+        .katex-display {
+            margin: 0.6em -0.5rem;
+            padding: 0 0.5rem;
+        }
+    }
 </style>
 
 {{- /* DNS prefetch and preconnect for external resources */ -}}
@@ -119,7 +187,7 @@ if ('serviceWorker' in navigator) {
 {{- /* Critical KaTeX CSS inline - no VS Code linter errors */ -}}
 <style>
 /* Critical KaTeX styles for immediate rendering */
-.katex{font:normal 1.21em KaTeX_Main,"Times New Roman",serif;line-height:1.2;text-indent:0;text-rendering:auto;border-color:currentColor}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:min-content}.katex .strut{display:inline-block}.katex .textbf{font-weight:bold}.katex .textit{font-style:italic}.katex .mathnormal{font-family:KaTeX_Math,"Times New Roman",serif;font-style:italic}.katex .mathit{font-family:KaTeX_Main,"Times New Roman",serif;font-style:italic}.katex .mathrm{font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center}.katex-display>.katex{display:block;white-space:nowrap}
+.katex{font:normal 1.21em KaTeX_Main,"Times New Roman",serif;line-height:1.2;text-indent:0;text-rendering:auto;border-color:currentColor}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:min-content}.katex .strut{display:inline-block}.katex .textbf{font-weight:bold}.katex .textit{font-style:italic}.katex .mathnormal{font-family:KaTeX_Math,"Times New Roman",serif;font-style:italic}.katex .mathit{font-family:KaTeX_Main,"Times New Roman",serif;font-style:italic}.katex .mathrm{font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center;overflow-x:auto;overflow-y:hidden}.katex-display>.katex{display:block;white-space:nowrap;text-align:left;padding-bottom:0.3em}
 </style>
 
 {{- /* Load full KaTeX CSS directly */ -}}

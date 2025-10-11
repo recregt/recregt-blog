@@ -79,9 +79,44 @@
     display: block;
     margin: 1em 0;
     text-align: center;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .katex-display > .katex {
     display: block;
     white-space: nowrap;
+    text-align: left;
+    padding-bottom: 0.3em;
+}
+
+/* Mobile responsive improvements */
+@media screen and (max-width: 768px) {
+    .katex-display {
+        margin: 0.8em 0;
+        font-size: 0.95em;
+    }
+    
+    .katex {
+        font-size: 1.1em;
+    }
+    
+    /* Add scrollbar styling for better UX */
+    .katex-display::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .katex-display::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    
+    .katex-display::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+    
+    .katex-display::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 }
