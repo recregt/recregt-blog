@@ -1,0 +1,156 @@
+{{- define "main" }}
+
+{{- if not .IsHome }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+{{- $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }}
+
+{{- if $paginator.Pages }}
+{{- $hasRegularPages := gt (len .RegularPages) 0 }}
+
+{{- if $hasRegularPages }}
+{{/* Use default card layout when there are regular pages (articles) */}}
+<div class="post-list">
+  {{- range $paginator.Pages }}
+  <article class="post-entry">
+    {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+    {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+    <header class="entry-header">
+      <h2 class="entry-hint-parent">
+        {{- .Title }}
+        {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+      </h2>
+    </header>
+    {{- if (ne (.Param "hideSummary") true) }}
+    <div class="entry-content">
+      <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <footer class="entry-footer">
+      {{- partial "post_meta.html" . -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+  </article>
+  {{- end }}
+</div>
+{{- else }}
+{{/* Use clean layout when only sections (no articles) */}}
+<div class="lessons-list">
+  {{- range $paginator.Pages }}
+  {{- $class := "lesson-item" }}
+  {{- if eq .Kind "section" }}
+    {{- $class = "lesson-category" }}
+  {{- end }}
+  
+  <a href="{{ .RelPermalink }}" class="{{ $class }}">
+    <article>
+      <h2 class="lesson-title">{{ .Title }}</h2>
+      {{- if .Description }}
+      <div class="lesson-description">
+        {{ .Description }}
+      </div>
+      {{- else if .Summary }}
+      <div class="lesson-description">
+        {{ .Summary }}
+      </div>
+      {{- end }}
+    </article>
+  </a>
+  {{- end }}
+</div>
+{{- end }}
+
+<style>
+.lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.lesson-item,
+.lesson-category {
+  display: block;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.lesson-item:hover,
+.lesson-category:hover {
+  border-color: var(--tertiary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.lesson-item article,
+.lesson-category article {
+  margin: 0;
+}
+
+.lesson-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.lesson-description {
+  color: var(--secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.lesson-category {
+  background: var(--code-bg);
+}
+
+.lesson-category .lesson-title {
+  font-size: 1.35rem;
+}
+</style>
+
+{{- end }}
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="prev" href="{{ $paginator.Prev.URL }}">
+      « {{ i18n "prev_page" }}
+    </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a class="next" href="{{ $paginator.Next.URL }}">
+      {{ i18n "next_page" }} »
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}{{/* end main */}}

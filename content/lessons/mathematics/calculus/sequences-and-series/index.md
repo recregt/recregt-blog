@@ -1,9 +1,9 @@
 ---
-title: "Calculus - Sequences and Series"
+title: "Sequences and Series"
 date: 2025-10-11
 draft: false
-topics: ["Calculus", "Sequences", "Series"]
-lessons: ["Mathematics"]
+categories: ["Mathematics"]
+tags: ["Calculus", "Sequences", "Series"]
 math: true
 description: "Understanding sequences and series, examples, solutions."
 summary: "Learn the fundamental concepts and formulas of sequences and series (arithmetic, geometric, harmonic). Strengthen your understanding by reinforcing the topic with step-by-step solved examples and exercises."

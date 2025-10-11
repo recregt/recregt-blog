@@ -1,10 +1,10 @@
 ---
-title: "Electromagnetism: Electric and Magnetic Fields"
+title: "Electric and Magnetic Fields"
 date: 2025-10-03
 draft: false
 description: "Understanding electric and magnetic fields, their properties and interactions"
-lessons: ["Physics"]
-topics: ["electromagnetism", "electric-fields", "magnetic-fields", "maxwell-equations"]
+categories: ["Physics"]
+tags: ["Electromagnetism", "Electric Fields", "Magnetic Fields", "Maxwell Equations"]
 ---
 
 ## Introduction to Electromagnetism

@@ -1,4 +1,5 @@
 baseURL = 'https://notes.recregt.com/'
+languageCode = 'en-us'
 title = 'Recregt Notes'
 theme = 'PaperMod'
 enableRobotsTXT = true
@@ -8,13 +9,22 @@ buildExpired = false
 enableEmoji = true
 pygmentsUseClasses = true
 pagination.pagerSize = 10
+enableGitInfo = false
+canonifyURLs = false
 
 [minify]
   disableXML = true
   minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepWhitespace = false
+    [minify.tdewolff.css]
+      precision = 2
+    [minify.tdewolff.js]
+      precision = 2
 
 [params]
-  mainSections = ["mathematics", "physics", "computer-science", "programming"]
+  mainSections = ["lessons"]
   env = "production"
   author = "Ömer Tekin"
   images = ["/images/og-image.jpg"]
@@ -39,6 +49,9 @@ pagination.pagerSize = 10
   showtoc = true
   tocopen = true
   math = true
+  # Analytics & Performance
+  assets.disableHLJS = false
+  assets.disableFingerprinting = false
 
 [params.homeInfoParams]
   Title = "Welcome! 👋"
@@ -86,25 +99,28 @@ pagination.pagerSize = 10
   weight = 20
 
 [[menu.main]]
-  identifier = "topics"
-  name = "Topics"
-  url = "/topics/"
-  weight = 30
-
-[[menu.main]]
   identifier = "search"
   name = "Search"
   url = "/search/"
-  weight = 40
-
-[[menu.main]]
-  identifier = "recregt"
-  name = "Recregt"
-  url = "https://notes.recregt.com"
-  weight = 50
+  weight = 30
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+[caches]
+  [caches.getjson]
+    dir = ":cacheDir/:project"
+    maxAge = "24h"
+  [caches.getcsv]
+    dir = ":cacheDir/:project"
+    maxAge = "24h"
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
 
 [markup]
   [markup.goldmark]
@@ -128,8 +144,26 @@ pagination.pagerSize = 10
 
 [sitemap]
   changefreq = "weekly"
-  priority = 0.8
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[permalinks]
+  lessons = "/lessons/:sections[1:]/:slug/"
 
 [taxonomies]
-  lesson = "lessons"
-  topic = "topics"
+  category = "categories"
+  tag = "tags"
+
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "categories"
+    weight = 80
+  [[related.indices]]
+    name = "date"
+    weight = 10
