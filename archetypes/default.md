@@ -8,7 +8,7 @@ math: true
 description: ""
 summary: ""
 ShowToc: true
-TocOpen: true
+TocOpen: false
 ---
 
 ## Introduction

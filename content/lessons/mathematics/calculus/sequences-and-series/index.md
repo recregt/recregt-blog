@@ -12,7 +12,7 @@ cover:
     alt: "Sequences and Series Convergence Visualization"
     caption: "Visual representation of sequence and series convergence"
 ShowToc: true
-TocOpen: true
+TocOpen: false
 ---
 
 ## Sequences
