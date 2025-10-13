@@ -1,0 +1,6 @@
+KaTeX v0.16.25
+Downloaded: October 13, 2025
+Source: https://github.com/KaTeX/KaTeX
+
+Self-hosted for security and performance.
+To update: npm install katex@latest --no-save && copy dist/* to this directory

@@ -190,12 +190,12 @@ if ('serviceWorker' in navigator) {
 .katex{font:normal 1.21em KaTeX_Main,"Times New Roman",serif;line-height:1.2;text-indent:0;text-rendering:auto;border-color:currentColor}.katex *{-ms-high-contrast-adjust:none!important;border-color:currentColor}.katex .katex-mathml{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}.katex .katex-html>.newline{display:block}.katex .base{position:relative;white-space:nowrap;width:min-content}.katex .strut{display:inline-block}.katex .textbf{font-weight:bold}.katex .textit{font-style:italic}.katex .mathnormal{font-family:KaTeX_Math,"Times New Roman",serif;font-style:italic}.katex .mathit{font-family:KaTeX_Main,"Times New Roman",serif;font-style:italic}.katex .mathrm{font-style:normal}.katex-display{display:block;margin:1em 0;text-align:center;overflow-x:auto;overflow-y:hidden}.katex-display>.katex{display:block;white-space:nowrap;text-align:left;padding-bottom:0.3em}
 </style>
 
-{{- /* Load full KaTeX CSS directly - using flexible version range */ -}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" crossorigin="anonymous">
+{{- /* Load KaTeX from local vendor directory (v0.16.25) - Self-hosted for security */ -}}
+<link rel="stylesheet" href="/vendor/katex/katex.min.css">
 
 {{- /* Load KaTeX JavaScript with defer for better performance */ -}}
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderKaTeXMath()"></script>
+<script defer src="/vendor/katex/katex.min.js"></script>
+<script defer src="/vendor/katex/contrib/auto-render.min.js" onload="renderKaTeXMath()"></script>
 
 
 <script>
